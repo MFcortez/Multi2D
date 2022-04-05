@@ -4,13 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
     public GameObject player;
 
+    [Header("LOGIN")]
+    public GameObject pnLogin;
+    public TMP_InputField iNickName;
+    public Button btnLogin;
+    string nickname;
+
     private void Start()
     {
+        pnLogin.SetActive(true);
+
         if (!PhotonNetwork.IsConnected)
         {
             PhotonNetwork.ConnectUsingSettings();
@@ -25,8 +35,11 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public void Login()
     {
         print("##################### LOGIN ##################");
-        
-        //btnLogin.interactable = false;
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        btnLogin.interactable = false;
     }
 
     public void JoinRandomRoom()
@@ -50,7 +63,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinLobby();
+        print("Conectado fi!");
+        PhotonNetwork.NickName = iNickName.text;
     }
 
     public override void OnJoinedLobby()
