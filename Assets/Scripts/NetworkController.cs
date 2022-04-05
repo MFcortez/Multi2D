@@ -17,16 +17,20 @@ public class NetworkController : MonoBehaviourPunCallbacks
     public Button btnLogin;
     string nickname;
 
+    [Header("Lobby")]
+    public GameObject pnLobby;
+    public TMP_InputField iRoomName;
+    string roomName;
+
     private void Start()
     {
+        pnLobby.SetActive(false);
         pnLogin.SetActive(true);
 
-        if (!PhotonNetwork.IsConnected)
+        if (PlayerPrefs.HasKey("user"))
         {
-            PhotonNetwork.ConnectUsingSettings();
+            iNickName.text = PlayerPrefs.GetString("user");
         }
-
-        PhotonNetwork.NickName = "FRC";
     }
 
     // ================================================
@@ -65,12 +69,17 @@ public class NetworkController : MonoBehaviourPunCallbacks
     {
         print("Conectado fi!");
         PhotonNetwork.NickName = iNickName.text;
+        pnLogin.SetActive(false);
+        pnLobby.SetActive(true);
+
+        PlayerPrefs.SetString("user", iNickName.text);
     }
 
     public override void OnJoinedLobby()
     {
         print("OnJoinedLobby");
         PhotonNetwork.JoinRandomRoom();
+        pnLobby.SetActive(false);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -86,13 +95,20 @@ public class NetworkController : MonoBehaviourPunCallbacks
         print("Nome da sala: "+ PhotonNetwork.CurrentRoom.Name);
         print("Players conectados: " + PhotonNetwork.CurrentRoom.PlayerCount);
 
-        //pnLobby.SetActive(false);
+        pnLobby.SetActive(false);
         foreach(Player nick in PhotonNetwork.PlayerList)
         {
             print("PlayerList: " + nick.NickName);
         }
 
         PhotonNetwork.Instantiate(player.name, Vector2.zero, Quaternion.identity);
+    }
+
+    public void CreateRoom()
+    {
+        print("##################### CRIAR SALA ##################");
+        RoomOptions opt = new RoomOptions() { MaxPlayers = 4 };
+        PhotonNetwork.JoinOrCreateRoom(iRoomName.text, opt, TypedLobby.Default, null);
     }
 
     public override void OnCreatedRoom()
