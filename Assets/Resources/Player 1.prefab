@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1693560193}
   - component: {fileID: 2518875496206711510}
   - component: {fileID: 156271036437261234}
-  - component: {fileID: 81452394}
+  - component: {fileID: 8543008663407794769}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 1
   m_UseLocal: 1
---- !u!114 &81452394
+--- !u!114 &8543008663407794769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,13 +325,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 545477199139891718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 609779591f899274a8a3785553f1e591, type: 3}
+  m_Script: {fileID: 11500000, guid: d0827eaabba4c0b47a04d16cf32c9a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 800
-  foot: {fileID: 601645496}
-  mask:
-    serializedVersion: 2
-    m_Bits: 8
-  isGrounded: 0
-  maxDistance: 0.06
+  bullet: {fileID: 7651423732719508401, guid: 9eaefbf48f56be24ea95db25e3660a59, type: 3}
+  force: 5

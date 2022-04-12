@@ -101,7 +101,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
             print("PlayerList: " + nick.NickName);
         }
 
-        PhotonNetwork.Instantiate(player.name, Vector2.zero, Quaternion.identity);
+        PhotonNetwork.LoadLevel("Elevator");
     }
 
     public void CreateRoom()
